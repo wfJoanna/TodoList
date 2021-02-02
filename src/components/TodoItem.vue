@@ -17,6 +17,11 @@ export default {
       completedData: this.itemCompleted
     }
   },
+  watch: {
+    itemCompleted (val) {
+      this.completedData = val
+    }
+  },
   methods: {
     toggleMe () {
       this.completedData = !this.completedData
