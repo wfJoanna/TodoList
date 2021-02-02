@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <input v-model="inputValue"/>
-    <button @click="handleSubmit">提交</button>
+    <button @click="addTodo">添加任务</button>
     <ul>
-      <todo-item v-for="(item,index) in list" :key="index" :content="item" :index="index"
-                 @delete="handleDelete"></todo-item>
+      <todo-item v-for="(item,index) in todos" :key="index" :content="item.title" :index="index"
+                 :completed="item.completed" @toggle="toggleTodo" @deleteItem="deleteTodo"></todo-item>
     </ul>
   </div>
 </template>
@@ -19,24 +19,36 @@ export default {
   },
   data () {
     return {
-      list: [],
+      todos: [],
       inputValue: ''
     }
   },
   methods: {
-    handleSubmit: function () {
-      this.list.push(this.inputValue)
-      localStorage.setItem('todo-list', JSON.stringify(this.list))
+    addTodo () {
+      this.todos.push({
+        title: this.inputValue,
+        completed: false
+      })
       this.inputValue = ''
     },
-    handleDelete: function (index) {
-      this.list.splice(index, 1)
-      localStorage.setItem('todo-list', JSON.stringify(this.list))
+    toggleTodo (status, index) {
+      this.todos[index].completed = status
+    },
+    deleteTodo (index) {
+      this.todos.splice(index, 1)
     }
   },
   created () {
     if (localStorage.getItem('todo-list')) {
-      this.list = JSON.parse(localStorage.getItem('todo-list'))
+      this.todos = JSON.parse(localStorage.getItem('todo-list'))
+    }
+  },
+  watch: {
+    todos: {
+      deep: true,
+      handler: function (val) {
+        localStorage.setItem('todo-list', JSON.stringify(val))
+      }
     }
   }
 }
