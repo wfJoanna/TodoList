@@ -3,8 +3,8 @@
     <input v-model="inputValue"/>
     <button @click="addTodo">添加任务</button>
     <ul>
-      <todo-item v-for="(item,index) in todos" :key="index" :content="item.title" :index="index"
-                 :completed="item.completed" @toggle="toggleTodo" @deleteItem="deleteTodo"></todo-item>
+      <todo-item v-for="(item,index) in todos" :key="index" :itemTitle="item.title" :itemIndex="index"
+                 :itemCompleted="item.completed" @toggleItem="toggleTodo" @deleteItem="deleteTodo"></todo-item>
     </ul>
   </div>
 </template>
