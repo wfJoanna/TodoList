@@ -1,10 +1,10 @@
 <template>
   <li class="todo-item">
     <div class="item-content" @click="toggleMe" :class="{'completed-item':completedData}">
-      <input class="item-checkbox" type="checkbox" style="border-radius: 50%;" v-model="completedData"/>
+      <input class="item-checkbox" type="checkbox" v-model="completedData"/>
       <label>{{ itemTitle }}</label>
     </div>
-    <i class="el-icon-delete" style="background: #f7f7e8;margin: 2px;" @click="deleteMe"></i>
+    <i class="el-icon-delete" @click="deleteMe"></i>
   </li>
 </template>
 
@@ -50,6 +50,7 @@ export default {
   margin-top: -1px; /*解决了border重叠成2px的问题*/
   color: #557174;
   font-size: 30px;
+  z-index: 100;
 }
 
 .item-content {
@@ -59,5 +60,14 @@ export default {
   margin: 0px 2px 0px 0px;
   background: #f7f7e8;
   overflow: auto;
+}
+
+.item-content:hover, .el-icon-delete:hover {
+  cursor: pointer;
+}
+
+.el-icon-delete {
+  background: #f7f7e8;
+  margin: 2px;
 }
 </style>
