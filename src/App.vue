@@ -9,6 +9,7 @@
       <todo-item v-for="(item,index) in todos" :key="index" :itemTitle="item.title" :itemIndex="index"
                  :itemCompleted="item.completed" @toggleItem="toggleTodo" @deleteItem="deleteTodo"></todo-item>
     </ol>
+    <setting-panel :count="count"></setting-panel>
     <my-foot></my-foot>
   </div>
 </template>
@@ -17,18 +18,21 @@
 import TodoItem from '@/components/TodoItem'
 import MyFoot from '@/components/MyFoot'
 import TodoBackground from '@/components/TodoBackground'
+import SettingPanel from '@/components/SettingPanel'
 
 export default {
   name: 'App',
   components: {
     TodoItem,
     MyFoot,
-    TodoBackground
+    TodoBackground,
+    SettingPanel
   },
   data () {
     return {
       todos: [],
-      inputValue: ''
+      inputValue: '',
+      count: 0
     }
   },
   methods: {
@@ -44,11 +48,19 @@ export default {
     },
     deleteTodo (index) {
       this.todos.splice(index, 1)
+    },
+    countTodo () {
+      let count = 0
+      for (const item of this.todos) {
+        if (item.completed === false) count++
+      }
+      this.count = count
     }
   },
   created () {
     if (localStorage.getItem('todo-list')) {
       this.todos = JSON.parse(localStorage.getItem('todo-list'))
+      this.countTodo()
     }
   },
   watch: {
@@ -56,6 +68,7 @@ export default {
       deep: true,
       handler: function (val) {
         localStorage.setItem('todo-list', JSON.stringify(val))
+        this.countTodo()
       }
     }
   }
@@ -71,12 +84,12 @@ export default {
 
 .input-todo {
   display: flex;
-  width: 100%;
   justify-content: center;
+  align-items: center;
 }
 
 .el-input {
-  width: 200px;
+  width: 30%;
   font-size: 20px;
 }
 
@@ -91,9 +104,15 @@ export default {
   background: #9dad7f;
 }
 
-.el-button:focus, .el-button:hover {
+.el-button:hover {
   color: white;
   border-color: #9dad7f;
+  background-color: #9dad7f;
+}
+
+.el-button:focus {
+  color: white;
+  border-color: #c7cfb7;
   background-color: #9dad7f;
 }
 </style>

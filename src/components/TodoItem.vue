@@ -51,6 +51,7 @@ export default {
   color: #557174;
   font-size: 30px;
   z-index: 100;
+  margin-left: -5%; /*解决了不完全居中问题*/
 }
 
 .item-content {
