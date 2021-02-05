@@ -9,6 +9,9 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import * as types from '@/store/mutationType'
+
 export default {
   name: 'TodoItem',
   props: ['itemTitle', 'itemIndex', 'itemCompleted'],
@@ -23,12 +26,19 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      toToggleItem: types.TOGGLE_ITEM,
+      toDeleteItem: types.DELETE_ITEM
+    }),
     toggleMe () {
       this.completedData = !this.completedData
-      this.$emit('toggleItem', this.completedData, this.itemIndex)
+      this.toToggleItem({
+        status: this.completedData,
+        index: this.itemIndex
+      })
     },
     deleteMe () {
-      this.$emit('deleteItem', this.itemIndex)
+      this.toDeleteItem(this.itemIndex)
     }
   }
 }

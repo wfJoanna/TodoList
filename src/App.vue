@@ -3,13 +3,13 @@
     <todo-background></todo-background>
     <div class="input-todo">
       <el-input placeholder="添加任务" v-model="inputValue"></el-input>
-      <el-button @click="addTodo" icon="el-icon-plus" circle></el-button>
+      <el-button @click="handleAdd" icon="el-icon-plus" circle></el-button>
     </div>
     <ol class="todo-list">
       <todo-item v-for="(item,index) in todos" :key="index" :itemTitle="item.title" :itemIndex="index"
-                 :itemCompleted="item.completed" @toggleItem="toggleTodo" @deleteItem="deleteTodo"></todo-item>
+                 :itemCompleted="item.completed"></todo-item>
     </ol>
-    <setting-panel :count="count"></setting-panel>
+    <setting-panel></setting-panel>
     <my-foot></my-foot>
   </div>
 </template>
@@ -20,6 +20,9 @@ import MyFoot from '@/components/MyFoot'
 import TodoBackground from '@/components/TodoBackground'
 import SettingPanel from '@/components/SettingPanel'
 
+import * as types from '@/store/mutationType.js'
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   name: 'App',
   components: {
@@ -28,47 +31,41 @@ export default {
     TodoBackground,
     SettingPanel
   },
+  computed: {
+    ...mapState({
+      todos: state => state.ListStore.todos,
+      itemCount: state => state.ListStore.itemCount
+    })
+  },
   data () {
     return {
-      todos: [],
-      inputValue: '',
-      count: 0
+      inputValue: ''
     }
   },
   methods: {
-    addTodo () {
-      this.todos.push({
+    ...mapMutations({
+      toGetList: types.GET_LIST,
+      toAddList: types.ADD_LIST,
+      toCountList: types.COUNT_LIST
+    }),
+    handleAdd () {
+      this.toAddList({
         title: this.inputValue,
         completed: false
       })
       this.inputValue = ''
-    },
-    toggleTodo (status, index) {
-      this.todos[index].completed = status
-    },
-    deleteTodo (index) {
-      this.todos.splice(index, 1)
-    },
-    countTodo () {
-      let count = 0
-      for (const item of this.todos) {
-        if (item.completed === false) count++
-      }
-      this.count = count
     }
   },
   created () {
-    if (localStorage.getItem('todo-list')) {
-      this.todos = JSON.parse(localStorage.getItem('todo-list'))
-      this.countTodo()
-    }
+    this.toGetList()
+    this.toCountList()
   },
   watch: {
     todos: {
       deep: true,
       handler: function (val) {
         localStorage.setItem('todo-list', JSON.stringify(val))
-        this.countTodo()
+        this.toCountList()
       }
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="setting-panel">
 
-    <span>{{ ItemCount }} item to do</span>
+    <span>{{ itemCount }} item to do</span>
 
     <el-button-group>
       <el-button @click="handleAll">all</el-button>
@@ -18,18 +18,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'SettingPanel',
-  data () {
-    return {
-      ItemCount: this.count
-    }
-  },
-  props: ['count'],
-  watch: {
-    count (val) {
-      this.ItemCount = val
-    }
+  computed: {
+    ...mapState({
+      itemCount: state => state.ListStore.itemCount
+    })
   }
 }
 </script>
