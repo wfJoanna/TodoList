@@ -1,5 +1,5 @@
 <template>
-  <li class="todo-item">
+  <li class="todo-item" v-if="ifFilter">
     <div class="item-content" @click="toggleMe" :class="{'completed-item':completedData}">
       <input class="item-checkbox" type="checkbox" v-model="completedData"/>
       <label>{{ itemTitle }}</label>
@@ -9,12 +9,22 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import * as types from '@/store/mutationType'
 
 export default {
   name: 'TodoItem',
   props: ['itemTitle', 'itemIndex', 'itemCompleted'],
+  computed: {
+    ...mapState({
+      filterState: state => state.ListStore.filterState
+    }),
+    ifFilter () {
+      if (this.filterState === 'todo' && this.completedData === true) return false
+      else if (this.filterState === 'completed' && this.completedData === false) return false
+      else return true
+    }
+  },
   data () {
     return {
       completedData: this.itemCompleted
@@ -31,9 +41,8 @@ export default {
       toDeleteItem: types.DELETE_ITEM
     }),
     toggleMe () {
-      this.completedData = !this.completedData
       this.toToggleItem({
-        status: this.completedData,
+        status: !this.completedData,
         index: this.itemIndex
       })
     },
@@ -60,7 +69,6 @@ export default {
   margin-top: -1px; /*解决了border重叠成2px的问题*/
   color: #557174;
   font-size: 30px;
-  z-index: 100;
   margin-left: -5%; /*解决了不完全居中问题*/
 }
 

@@ -4,9 +4,9 @@
     <span>{{ itemCount }} item to do</span>
 
     <el-button-group>
-      <el-button @click="handleAll">all</el-button>
-      <el-button @click="handleTodo">todo</el-button>
-      <el-button @click="handleCompleted">completed</el-button>
+      <el-button class="filter-button alive" @click="handleFilter($event,'all')">all</el-button>
+      <el-button class="filter-button" @click="handleFilter($event,'todo')">todo</el-button>
+      <el-button class="filter-button" @click="handleFilter($event,'completed')">completed</el-button>
     </el-button-group>
 
     <el-button-group>
@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import * as types from '@/store/mutationType.js'
 
 export default {
   name: 'SettingPanel',
@@ -26,6 +27,18 @@ export default {
     ...mapState({
       itemCount: state => state.ListStore.itemCount
     })
+  },
+  methods: {
+    ...mapMutations({
+      toToggleFilter: types.TOGGLE_FILTER
+    }),
+    handleFilter (e, condition) {
+      this.toToggleFilter(condition)
+      for (const t of document.getElementsByClassName('filter-button')) {
+        t.style.background = '#9dad7f'
+      }
+      e.currentTarget.style.background = '#557174'
+    }
   }
 }
 </script>
@@ -40,6 +53,9 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 101; /*没能覆盖footer*/
+}
+
+.filter-button.alive {
+  background: #557174;
 }
 </style>

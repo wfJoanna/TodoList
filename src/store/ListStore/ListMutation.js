@@ -22,5 +22,8 @@ export default {
   },
   [types.DELETE_ITEM] (state, data) {
     state.todos.splice(data, 1)
+  },
+  [types.TOGGLE_FILTER] (state, data) {
+    state.filterState = data
   }
 }

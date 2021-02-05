@@ -3,7 +3,8 @@ import mutations from './ListMutation.js'
 
 const state = {
   todos: [],
-  itemCount: 0
+  itemCount: 0,
+  filterState: 'all'
 }
 
 export default {

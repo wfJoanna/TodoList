@@ -34,7 +34,8 @@ export default {
   computed: {
     ...mapState({
       todos: state => state.ListStore.todos,
-      itemCount: state => state.ListStore.itemCount
+      itemCount: state => state.ListStore.itemCount,
+      filterState: state => state.ListStore.filterState
     })
   },
   data () {

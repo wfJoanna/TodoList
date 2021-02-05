@@ -7,8 +7,11 @@ export const ADD_LIST = 'add_list'
 /** 计数 **/
 export const COUNT_LIST = 'count_list'
 
-/** 转换任务状态 **/
+/** 切换任务状态 **/
 export const TOGGLE_ITEM = 'toggle_item'
 
 /** 删除任务 **/
 export const DELETE_ITEM = 'delete_item'
+
+/** 切换过滤条件 **/
+export const TOGGLE_FILTER = 'toggle_filter'

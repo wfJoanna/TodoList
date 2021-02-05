@@ -18,6 +18,7 @@ export default {
   text-align: center;
   color: #9dad7f;
   border-top: 1px solid #9dad7f;
+  z-index: -1;
 }
 
 a {
