@@ -25,5 +25,20 @@ export default {
   },
   [types.TOGGLE_FILTER] (state, data) {
     state.filterState = data
+  },
+  [types.FINISH_ALL] (state, data) {
+    for (const item of state.todos) {
+      if (item.completed === false) {
+        item.completed = true
+      }
+    }
+  },
+  [types.DELETE_ALL] (state, data) {
+    const length = state.todos.length
+    for (let index = 0; index < length; index++) {
+      if (state.todos[index].completed === true) {
+        state.todos.splice(index, 1)
+      }
+    }
   }
 }

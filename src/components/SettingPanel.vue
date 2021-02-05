@@ -30,7 +30,9 @@ export default {
   },
   methods: {
     ...mapMutations({
-      toToggleFilter: types.TOGGLE_FILTER
+      toToggleFilter: types.TOGGLE_FILTER,
+      toFinishAll: types.FINISH_ALL,
+      toDeleteAll: types.DELETE_ALL
     }),
     handleFilter (e, condition) {
       this.toToggleFilter(condition)
@@ -38,6 +40,12 @@ export default {
         t.style.background = '#9dad7f'
       }
       e.currentTarget.style.background = '#557174'
+    },
+    handleFinish () {
+      this.toFinishAll()
+    },
+    handleDelete () {
+      this.toDeleteAll()
     }
   }
 }

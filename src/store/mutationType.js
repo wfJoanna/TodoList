@@ -15,3 +15,9 @@ export const DELETE_ITEM = 'delete_item'
 
 /** 切换过滤条件 **/
 export const TOGGLE_FILTER = 'toggle_filter'
+
+/** 完成所有任务 **/
+export const FINISH_ALL = 'finish_all'
+
+/** 删除所有已完成的任务 **/
+export const DELETE_ALL = 'delete_all'
