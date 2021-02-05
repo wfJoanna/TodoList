@@ -27,11 +27,8 @@ export default {
     }
   },
   [types.DELETE_ALL] (state, data) {
-    const length = state.todos.length
-    for (let index = 0; index < length; index++) {
-      if (state.todos[index].completed === true) {
-        state.todos.splice(index, 1)
-      }
-    }
+    state.todos = state.todos.filter((item, index) => {
+      return !item.completed
+    })
   }
 }
