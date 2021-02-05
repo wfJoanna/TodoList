@@ -4,9 +4,6 @@ export const GET_LIST = 'get_list'
 /** 添加数据到列表 **/
 export const ADD_LIST = 'add_list'
 
-/** 计数 **/
-export const COUNT_LIST = 'count_list'
-
 /** 切换任务状态 **/
 export const TOGGLE_ITEM = 'toggle_item'
 

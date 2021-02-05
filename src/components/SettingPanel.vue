@@ -25,8 +25,11 @@ export default {
   name: 'SettingPanel',
   computed: {
     ...mapState({
-      itemCount: state => state.ListStore.itemCount
-    })
+      todos: state => state.ListStore.todos
+    }),
+    itemCount () {
+      return this.todos.filter(item => !item.completed).length
+    }
   },
   methods: {
     ...mapMutations({

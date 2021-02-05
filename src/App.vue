@@ -34,7 +34,6 @@ export default {
   computed: {
     ...mapState({
       todos: state => state.ListStore.todos,
-      itemCount: state => state.ListStore.itemCount,
       filterState: state => state.ListStore.filterState
     })
   },
@@ -46,8 +45,7 @@ export default {
   methods: {
     ...mapMutations({
       toGetList: types.GET_LIST,
-      toAddList: types.ADD_LIST,
-      toCountList: types.COUNT_LIST
+      toAddList: types.ADD_LIST
     }),
     handleAdd () {
       this.toAddList({
@@ -59,14 +57,12 @@ export default {
   },
   created () {
     this.toGetList()
-    this.toCountList()
   },
   watch: {
     todos: {
       deep: true,
       handler: function (val) {
         localStorage.setItem('todo-list', JSON.stringify(val))
-        this.toCountList()
       }
     }
   }
