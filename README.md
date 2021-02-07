@@ -5,9 +5,12 @@
 
 ## TODO：
 
-1. 丰富样式
-2. 添加功能
-3. 可以参考一下<https://www.cnblogs.com/EricZLin/p/9369260.html>
+1. 编辑任务
+2. 搜索任务
+3. 任务模板
+4. 任务时间
+5. 响应式布局
+6. 可以参考一下<https://www.cnblogs.com/EricZLin/p/9369260.html>
 
 
 
